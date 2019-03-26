@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include 'connect.php';
 	if(isset($_SESSION['username']))
 		$username= $_SESSION['username'];
 	else 
@@ -79,7 +80,7 @@
 						<!-- Main Navigation -->
 						<nav class="main_nav ml-auto">
 							<ul class="main_nav_list">
-								<li class="main_nav_item"><a href="#">Home</a></li>
+								<li class="main_nav_item"><a href="index.php">Home</a></li>
 								<li class="main_nav_item"><a href="about.php">About Us</a></li>
 								
 								<div class="dropdown">
@@ -207,50 +208,7 @@
 		</div>
 	</header>
 
-	<!-- Menu -->
 
-	<div class="menu_container menu_mm">
-
-		<!-- Menu Close Button -->
-		<div class="menu_close_container">
-			<div class="menu_close"></div>
-		</div>
-
-		<!-- Menu Items -->
-		<div class="menu_inner menu_mm">
-			<div class="menu menu_mm">
-				<div class="menu_search_form_container">
-					<form action="#" id="menu_search_form">
-						<input type="search" class="menu_search_input menu_mm">
-						<button id="menu_search_submit" class="menu_search_submit" type="submit"><img src="images/search_2.png" alt=""></button>
-					</form>
-				</div>
-				<ul class="menu_list menu_mm">
-					<li class="menu_item menu_mm"><a href="index.php">Home</a></li>
-					<li class="menu_item menu_mm"><a href="#">About us</a></li>
-					<li class="menu_item menu_mm"><a href="offers.php">Offers</a></li>
-					<li class="menu_item menu_mm"><a href="news.php">News</a></li>
-					<li class="menu_item menu_mm"><a href="contact.php">Contact</a></li>
-				</ul>
-
-				<!-- Menu Social -->
-				
-				<div class="menu_social_container menu_mm">
-					<ul class="menu_social menu_mm">
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-
-				<div class="menu_copyright menu_mm">Colorlib All rights reserved</div>
-			</div>
-
-		</div>
-
-	</div>
 	
 	<!-- Home -->
 
@@ -364,20 +322,20 @@
 		</div>
 	</div>
 
-	<!-- About -->
+<!-- Newsletter -->
 	<div class="newsletter">
 		<!-- Image by https://unsplash.com/@garciasaldana_ -->
-		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg)"></div>
+		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg);"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="newsletter_content">
 						<div class="newsletter_title text-center">Subscribe to our Newsletter</div>
 						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
+							<form action="#" id="newsletter_form" method = 'POST' class="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-content-center justify-content-between">
-									<input type="email" id="newsletter_input" class="newsletter_input" placeholder="Your E-mail Address">
-									<button type="submit" id="newsletter_button" class="newsletter_button">Subscribe</button>
+									<input type="text" id="newsletter_input" class="newsletter_input" name="email" placeholder="Your E-mail Address"></input>
+									<button method = "POST" type="submit" id="newsletter_button" name="subscribe" class="newsletter_button">Subscribe</button>
 								</div>
 							</form>
 						</div>
@@ -386,6 +344,15 @@
 			</div>
 		</div>
 	</div>
+	<?php
+		if (isset($_POST['subscribe'])) {
+		    $email = $_POST['email'];
+		    $admin_query = "insert into subscribers values('$email');";
+		    $run = mysqli_query($connect,$admin_query);
+		    if($run == 1)
+		    	echo "<script>alert('Subscribed Successfully!')</script>";
+		}
+	?>
 
 	<!-- Footer -->
 	<footer class="footer">

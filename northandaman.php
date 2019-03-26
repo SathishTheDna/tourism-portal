@@ -428,17 +428,17 @@
 	<!-- About -->
 	<div class="newsletter">
 		<!-- Image by https://unsplash.com/@garciasaldana_ -->
-		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg)"></div>
+		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg);"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="newsletter_content">
 						<div class="newsletter_title text-center">Subscribe to our Newsletter</div>
 						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
+							<form action="#" id="newsletter_form" method = 'POST' class="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-content-center justify-content-between">
-									<input type="text" id="newsletter_input" class="newsletter_input" name="email" placeholder="Your E-mail Address">
-									<button type="submit" id="newsletter_button" name="subscribe" class="newsletter_button">Subscribe</button>
+									<input type="text" id="newsletter_input" class="newsletter_input" name="email" placeholder="Your E-mail Address"></input>
+									<button method = "POST" type="submit" id="newsletter_button" name="subscribe" class="newsletter_button">Subscribe</button>
 								</div>
 							</form>
 						</div>
@@ -448,18 +448,13 @@
 		</div>
 	</div>
 	<?php
-
-if (isset($_POST['subscribe'])) {
-
-    $email = $_POST['email'];
-    $admin_query = "insert into subscribers values('$email');";
-    $run = mysqli_query($connect,$admin_query);
-
-    if(mysqli_num_rows($run)>0)
-    {
-    	echo "<script>alert('Subscribed Successfully!')</script>";
-    }
-}
+		if (isset($_POST['subscribe'])) {
+		    $email = $_POST['email'];
+		    $admin_query = "insert into subscribers values('$email');";
+		    $run = mysqli_query($connect,$admin_query);
+		    if($run == 1)
+		    	echo "<script>alert('Subscribed Successfully!')</script>";
+		}
 	?>
 	<!-- Footer -->
 	<footer class="footer">

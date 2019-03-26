@@ -80,7 +80,7 @@ include('connect.php');
 if (isset($_POST['login'])) {
 
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
     $admin_query = "select * from users where username='$username' AND password='$password' ";
     $run = mysqli_query($connect,$admin_query);
 

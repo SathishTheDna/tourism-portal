@@ -1,5 +1,6 @@
 <?php	
 	session_start();
+	include 'connect.php';
 	if(isset($_SESSION['username'])) {
 		$username = $_SESSION['username'];
 	}
@@ -250,20 +251,6 @@ blink {
 					<li class="menu_item menu_mm"><a href="news.php">News</a></li>
 					<li class="menu_item menu_mm"><a href="contact.php">Contact</a></li>
 				</ul>
-
-				<!-- Menu Social -->
-				
-				<div class="menu_social_container menu_mm">
-					<ul class="menu_social menu_mm">
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-						<li class="menu_social_item menu_mm"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-					</ul>
-				</div>
-
-				<div class="menu_copyright menu_mm">Colorlib All rights reserved</div>
 			</div>
 
 		</div>
@@ -427,7 +414,7 @@ blink {
 		</div>
 	</div>
 
-	<!-- Video -->
+	<!-- Video 
 
 	<div class="video_section d-flex flex-column align-items-center justify-content-center">
 		<div class="video_background parallax-window" data-parallax="scroll" data-image-src="images/video.jpg" data-speed="0.8"></div>
@@ -436,7 +423,7 @@ blink {
 			<p>Click here to play the video!</p> </br>
 			<div class="video_title">Special places in the island</div>
 			<div class="video_play">
-				<a class="video" href="https://www.youtube.com/watch?v=C6sKDo1qZ2Y"><!--https://www.youtube.com/watch?v=C6sKDo1qZ2Y  videos/famous-places.mp4-->
+				<a class="video" href="https://www.youtube.com/watch?v=C6sKDo1qZ2Y">   https://www.youtube.com/watch?v=C6sKDo1qZ2Y  videos/famous-places.mp4
 					<svg version="1.1" id="Layer_1" class="play_button" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 						 width="140px" height="140px" viewBox="0 0 140 140" enable-background="new 0 0 140 140" xml:space="preserve">
 						<g id="Layer_2">
@@ -447,24 +434,23 @@ blink {
 				</a>
 			</div>
 		</div>
-	</div>
+	</div>-->
 
 
-	<!-- Newsletter -->
-
+<!-- Newsletter -->
 	<div class="newsletter">
 		<!-- Image by https://unsplash.com/@garciasaldana_ -->
-		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg)"></div>
+		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg);"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="newsletter_content">
 						<div class="newsletter_title text-center">Subscribe to our Newsletter</div>
 						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
+							<form action="#" id="newsletter_form" method = 'POST' class="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-content-center justify-content-between">
-									<input type="email" id="newsletter_input" class="newsletter_input" placeholder="Your E-mail Address">
-									<button type="submit" id="newsletter_button" class="newsletter_button">Subscribe</button>
+									<input type="text" id="newsletter_input" class="newsletter_input" name="email" placeholder="Your E-mail Address"></input>
+									<button method = "POST" type="submit" id="newsletter_button" name="subscribe" class="newsletter_button">Subscribe</button>
 								</div>
 							</form>
 						</div>
@@ -473,6 +459,15 @@ blink {
 			</div>
 		</div>
 	</div>
+	<?php
+		if (isset($_POST['subscribe'])) {
+		    $email = $_POST['email'];
+		    $admin_query = "insert into subscribers values('$email');";
+		    $run = mysqli_query($connect,$admin_query);
+		    if($run == 1)
+		    	echo "<script>alert('Subscribed Successfully!')</script>";
+		}
+	?>
 
 	<!-- Footer -->
 	<footer class="footer">

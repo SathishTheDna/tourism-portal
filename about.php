@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include 'connect.php';
 	if(isset($_SESSION['username']))
 		$username= $_SESSION['username'];
 	else 
@@ -193,18 +194,6 @@
 							</ul>
 						</nav>
 
-
-						<!-- Search 
-						<div class="search">
-							<form action="#" class="search_form">
-								<input type="search" name="search_input" class="search_input ctrl_class" required="required" placeholder="Keyword">
-								<button type="submit" class="search_button ml-auto ctrl_class"><img src="images/search.png" alt=""></button>
-							</form>
-						</div>
-						-->
-						<!-- Hamburger 
-						<div class="hamburger ml-auto"><i class="fa fa-bars" aria-hidden="true"></i></div>
-						-->
 					</div>
 				</div>
 			</div>
@@ -327,69 +316,20 @@
 		</div>
 	</div>
 
-	<!-- Services 
-
-	<div class="services">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="section_title text-center">
-						<h2>Popular services that we offer</h2>
-						<div>take a look at these offers</div>
-					</div>
-				</div>
-			</div>
-			<div class="row icon_box_container">-->
-
-				<!-- Icon Box 
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/service_1.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-						<div class="icon_box_title">Weekend trips</div>
-						<p class="icon_box_text">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Fusce fringilla lectus nec diam auctor, ut fringilla diam sagittis.</p>
-						<a href="#" class="icon_box_more">Read More</a>
-					</div>
-				</div>-->
-
-				<!-- Icon Box 
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/service_2.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-						<div class="icon_box_title">Fun leisure trips</div>
-						<p class="icon_box_text">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Fusce fringilla lectus nec diam auctor, ut fringilla diam sagittis.</p>
-						<a href="#" class="icon_box_more">Read More</a>
-					</div>
-				</div>-->
-
-				<!-- Icon Box
-				<div class="col-lg-4 icon_box_col">
-					<div class="icon_box">
-						<div class="icon_box_image"><img src="images/service_3.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-						<div class="icon_box_title">Plane tickets</div>
-						<p class="icon_box_text">Lorem ipsum dolor sit amet, consectetur adip iscing elit. Fusce fringilla lectus nec diam auctor, ut fringilla diam sagittis.</p>
-						<a href="#" class="icon_box_more">Read More</a>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div> -->
-
-	<!-- Newsletter -->
-
+<!-- Newsletter -->
 	<div class="newsletter">
 		<!-- Image by https://unsplash.com/@garciasaldana_ -->
-		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg)"></div>
+		<div class="newsletter_background" style="background-image:url(images/newsletter.jpg);"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="newsletter_content">
 						<div class="newsletter_title text-center">Subscribe to our Newsletter</div>
 						<div class="newsletter_form_container">
-							<form action="#" id="newsletter_form" class="newsletter_form">
+							<form action="#" id="newsletter_form" method = 'POST' class="newsletter_form">
 								<div class="d-flex flex-md-row flex-column align-content-center justify-content-between">
-									<input type="email" id="newsletter_input" class="newsletter_input" placeholder="Your E-mail Address">
-									<button type="submit" id="newsletter_button" class="newsletter_button">Subscribe</button>
+									<input type="text" id="newsletter_input" class="newsletter_input" name="email" placeholder="Your E-mail Address"></input>
+									<button method = "POST" type="submit" id="newsletter_button" name="subscribe" class="newsletter_button">Subscribe</button>
 								</div>
 							</form>
 						</div>
@@ -398,6 +338,15 @@
 			</div>
 		</div>
 	</div>
+	<?php
+		if (isset($_POST['subscribe'])) {
+		    $email = $_POST['email'];
+		    $admin_query = "insert into subscribers values('$email');";
+		    $run = mysqli_query($connect,$admin_query);
+		    if($run == 1)
+		    	echo "<script>alert('Subscribed Successfully!')</script>";
+		}
+	?>
 
 			<!-- Footer -->
 	<footer class="footer">

@@ -55,11 +55,11 @@
                     </div>
 					<div class="form-group input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-iphone"></i></span>
-                        <input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" />
+                        <input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" pattern="[0-9]{10}" />
                     </div>
 					<div class="form-group input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-iphone"></i></span>
-                        <input class="form-control" type="text" name="email" placeholder="Email ID" />
+                        <input class="form-control" type="email" name="email" placeholder="Email ID" />
                     </div>
 
                     <div class="form-group">
@@ -86,7 +86,7 @@
 include('connect.php');
 if (isset($_POST['register'])) {
    $username = $_POST['username'];
-   $password = $_POST['password'];
+   $password = md5($_POST['password']);
    $mobilenumber = $_POST['mobile_number'];
    $email = $_POST['email'];
    $admin_query = "INSERT INTO users VALUES('$username', '$password','$mobilenumber', '$email');";
